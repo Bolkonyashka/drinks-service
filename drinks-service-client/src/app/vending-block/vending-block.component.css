@@ -1,0 +1,87 @@
+#console-block {
+    width: 1000px;
+    margin: auto;
+    height: 400px;
+    background-color: rgb(171, 120, 209);
+}
+#console-screen {
+    width: 400px;
+    height: 350px;
+    background-color: rgb(188, 231, 182);
+    position: absolute;
+    margin-top: 25px;
+    margin-left: 25px;
+    box-shadow: inset 0 0 10px 2px grey;
+}
+#console-buttons {
+    width: 525px;
+    height: 350px;
+    margin-left: 475px;
+    margin-top: 25px;
+    position: absolute;
+}
+#pay-buttons {
+    width: 100%;
+    height: 100px;
+}
+#buy-buttons {
+    width: 475px;
+    height: 100px;
+    margin-top: 25px;
+}
+.buy-button {
+    cursor: pointer;
+    width: 475px;
+    height: 100px;
+    padding: 0;
+    border: 0;
+    background-color: rgb(200, 191, 231);
+    box-shadow: inset 0 0 1px 2px gray;
+}
+.buy-button:disabled {
+    background-color: gray;
+    cursor: default;
+}
+.pay-button {
+    cursor: pointer;
+    box-shadow: inset 0 0 1px 2px gray;
+    width: 100px;
+    height: 100px;
+    padding: 0;
+    border: 0;
+    margin-right: 25px;
+    background-color: rgb(200, 191, 231);
+}
+.pay-button:disabled {
+    background-color: gray;
+    cursor: default;
+}
+.button-text {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(83, 61, 160);
+    text-align: center;
+    font-size: 50px;
+}
+.info-block {
+    margin-left: 30px;
+    margin-top: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#input {
+    font-size: 20px;
+}
+#selected-drinks-label {
+    font-size: 18px;
+}
+#price {
+    font-size: 20px;
+    position: absolute;
+    bottom: 40px;
+}
+#drinks-block {
+    width: 1000px;
+}
+#error-info {
+    font-size: 15px;
+    color: brown;
+}

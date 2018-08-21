@@ -1,0 +1,9 @@
+<div class="drink-item" *ngIf="drinkItem.available()">
+  <div class="item-img-block">
+    <img class="item-img" src={{drinkItem.img}}>
+  </div>
+  <div class="item-name">{{drinkItem.name}}</div>
+  <div class="item-info">{{drinkItem.price}} руб</div>
+  <div class="item-info">Осталось: {{drinkItem.count}} шт</div>
+</div>
+
