@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { VendingModel } from '../_models/vending.model';
 import { DrinkItem } from '../_models/drink.item';
 
+import { HttpService } from '../_services/http.service';
+
 @Component({
   selector: 'app-vending-block',
   templateUrl: './vending-block.component.html',
@@ -10,19 +12,20 @@ import { DrinkItem } from '../_models/drink.item';
 export class VendingBlockComponent implements OnInit {
   vendingModel: VendingModel;
   maxCount: number = 5;
+  modelIsReady: boolean = false; //Заглушка на время подгрузки конфигурации автомата
 
-  constructor() { }
+  constructor(private httpService: HttpService) {  }
 
   ngOnInit() {
-    this.vendingModel = new VendingModel(1000, false, true, false, false);
-    var drinkitem = new DrinkItem("https://static.turbosquid.com/Preview/2015/08/07__08_00_18/1aa.jpgecdddeb2-06a6-4164-bbad-788aea764828Original.jpg", "Нюка-Кола без ядерных осадков", 120, 5);
-    this.vendingModel.drinksForSale.push(drinkitem);
-    var drinkitem = new DrinkItem("https://static.turbosquid.com/Preview/2015/08/07__08_00_18/1aa.jpgecdddeb2-06a6-4164-bbad-788aea764828Original.jpg", "Нюка-Кола", 180, 5);
-    this.vendingModel.drinksForSale.push(drinkitem);
-    var drinkitem = new DrinkItem("https://static.turbosquid.com/Preview/2015/08/07__08_00_18/1aa.jpgecdddeb2-06a6-4164-bbad-788aea764828Original.jpg", "Нюка-Кола без ядерных осадков", 120, 5);
-    this.vendingModel.drinksForSale.push(drinkitem);
-    var drinkitem = new DrinkItem("https://static.turbosquid.com/Preview/2015/08/07__08_00_18/1aa.jpgecdddeb2-06a6-4164-bbad-788aea764828Original.jpg", "Нюка-Кола без ядерных осадков", 120, 5);
-    this.vendingModel.drinksForSale.push(drinkitem);
+    //this.vendingModel = new VendingModel(1000, false, true, false, false);
+    //var drinkitem = new DrinkItem("https://static.turbosquid.com/Preview/2015/08/07__08_00_18/1aa.jpgecdddeb2-06a6-4164-bbad-788aea764828Original.jpg", "Нюка-Кола без ядерных осадков", 120, 5);
+    //this.vendingModel.drinksForSale.push(drinkitem);
+    this.httpService.getData("http://localhost:5000/api/vending").subscribe(data => {
+      this.vendingModel = new VendingModel(data[0]); //конструктор создан специально для преобразования обычных объектов
+      this.modelIsReady = true;
+    } );
+    //console.log(this.vendModelData);
+    //this.vendingModel = new VendingModel(vendModelData.cash, false, true, false, false);
   }
 
   moneyInput(count: number) {

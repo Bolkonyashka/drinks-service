@@ -2,25 +2,25 @@ import { DrinkItem } from './drink.item';
 import { VendingTip } from './tip.model';
 
 export class VendingModel{
-    cash: number;
-    blocked1: boolean;
-    blocked2: boolean;
-    blocked5: boolean;
-    blocked10: boolean;
+    id: number = 0;
+    cash: number = 100;
+    blocked1: boolean = false;
+    blocked2: boolean = false;
+    blocked5: boolean = false;
+    blocked10: boolean = false;
     selectedDrinks: DrinkItem[] = [];
     drinksForSale: DrinkItem[] = [];
     currentInput: number = 0;
     currentOutput: number = 0;
     currentPrice: number = 0;
-    tip: VendingTip;
+    tip: VendingTip = new VendingTip();
 
-    constructor(cCash: number, cBlock1: boolean, cBlock2: boolean, cBlock5: boolean,cBlock10: boolean) {
-      this.cash = cCash;
-      this.blocked1 = cBlock1;
-      this.blocked2 = cBlock2;
-      this.blocked5 = cBlock5;
-      this.blocked10 = cBlock10;
-      this.tip = new VendingTip;
+    constructor(data: any = {}) {
+      for (let key in data) {
+        if (key in this) {
+          this[key] = data[key];
+        }
+      }
     }
 
     buyButtonIsNotActive() {

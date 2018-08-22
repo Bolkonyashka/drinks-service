@@ -1,4 +1,5 @@
 export class DrinkItem{
+    id: number;
     img: string;
     name: string;
     price: number;

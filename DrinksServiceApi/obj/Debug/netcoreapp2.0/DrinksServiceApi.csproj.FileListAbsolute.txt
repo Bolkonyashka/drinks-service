@@ -1,0 +1,11 @@
+D:\Angular + WEB.API\drinks-service\DrinksServiceApi\bin\Debug\netcoreapp2.0\DrinksServiceApi.deps.json
+D:\Angular + WEB.API\drinks-service\DrinksServiceApi\bin\Debug\netcoreapp2.0\DrinksServiceApi.runtimeconfig.json
+D:\Angular + WEB.API\drinks-service\DrinksServiceApi\bin\Debug\netcoreapp2.0\DrinksServiceApi.runtimeconfig.dev.json
+D:\Angular + WEB.API\drinks-service\DrinksServiceApi\bin\Debug\netcoreapp2.0\DrinksServiceApi.dll
+D:\Angular + WEB.API\drinks-service\DrinksServiceApi\obj\Debug\netcoreapp2.0\DrinksServiceApi.csprojAssemblyReference.cache
+D:\Angular + WEB.API\drinks-service\DrinksServiceApi\obj\Debug\netcoreapp2.0\DrinksServiceApi.csproj.CoreCompileInputs.cache
+D:\Angular + WEB.API\drinks-service\DrinksServiceApi\obj\Debug\netcoreapp2.0\DrinksServiceApi.AssemblyInfoInputs.cache
+D:\Angular + WEB.API\drinks-service\DrinksServiceApi\obj\Debug\netcoreapp2.0\DrinksServiceApi.AssemblyInfo.cs
+D:\Angular + WEB.API\drinks-service\DrinksServiceApi\bin\Debug\netcoreapp2.0\DrinksServiceApi.pdb
+D:\Angular + WEB.API\drinks-service\DrinksServiceApi\obj\Debug\netcoreapp2.0\DrinksServiceApi.dll
+D:\Angular + WEB.API\drinks-service\DrinksServiceApi\obj\Debug\netcoreapp2.0\DrinksServiceApi.pdb
