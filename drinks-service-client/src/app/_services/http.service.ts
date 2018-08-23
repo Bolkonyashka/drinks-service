@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
   
 @Injectable()
 export class HttpService{
@@ -8,5 +8,10 @@ export class HttpService{
       
     getData(url: string){
         return this.http.get(url)
+    }
+
+    putData(url: string, data: any) {
+        const headers = new HttpHeaders().set('content-type', 'application/json');
+        return this.http.put(url, JSON.stringify(data), { headers: headers });
     }
 }

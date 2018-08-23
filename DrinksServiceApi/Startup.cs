@@ -21,9 +21,10 @@ namespace DrinksServiceApi
         {
             string con = "Server=.\\SQLEXPRESS;Database=DrinksApp;Trusted_Connection=True;MultipleActiveResultSets=true";
             services.AddDbContext<VendingContext>(options => options.UseSqlServer(con));
+            services.AddCors();
             services.AddMvc();
 
-            services.AddCors();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,7 +38,10 @@ namespace DrinksServiceApi
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200"));
+            //app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+            app.UseCors(builder => {
+                builder.WithOrigins("http://localhost:4200/").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+            });
 
             app.UseMvc();
         }

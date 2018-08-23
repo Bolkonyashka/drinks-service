@@ -34,9 +34,9 @@ namespace DrinksServiceApi.Controllers
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public VendingModel Get(int id)
         {
-            return "value";
+            return db.VendingModels.ToArray()[id];
         }
 
         // POST api/<controller>
@@ -45,10 +45,25 @@ namespace DrinksServiceApi.Controllers
         {
         }
 
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        // PUT api/<controller>
+        [HttpPut]
+        public IActionResult Put([FromBody]VendingModel vModel)
         {
+            if (vModel != null)
+            {
+                if (this.db.VendingModels.Any(x => x.id == vModel.id))
+                {
+                    db.VendingModels.Update(vModel);
+                    db.SaveChanges();
+                    return Ok(vModel);
+                } else
+                {
+                    return NotFound();
+                }
+            } else
+            {
+                return BadRequest();
+            }
         }
 
         // DELETE api/<controller>/5

@@ -1,20 +1,20 @@
 export class DrinkItem{
-    id: number;
-    img: string;
-    name: string;
-    price: number;
-    count: number;
+    id: number = 0;
+    img: string = '';
+    name: string = '';
+    price: number = 0;
+    count: number = 0;
 
-    constructor(cImg: string, cName: string, cPrice: number, cCount: number) {
-      this.img = cImg;
-      this.name = cName;
-      this.price = cPrice;
-      this.count = cCount;
+    constructor(data: any) {
+      for (let key in data) {
+        if (key in this) {
+          this[key] = data[key];
+        }
+      }
     }
 
     available() {
       return this.count != 0;
-      //alert(this.count)
     }
 
   }

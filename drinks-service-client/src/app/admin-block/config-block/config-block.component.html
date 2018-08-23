@@ -1,0 +1,44 @@
+<div *ngIf="modelIsReady">
+    <div class="row conf-row">
+      <div class="conf-info col-sm-12">
+        Баланс автомата: {{vendingModel.cash}}
+      </div>
+      <input type="number" class="form-control" placeholder="Новое значение" aria-label="Новое значение" [(ngModel)]="newCash">
+      <button class="btn btn-primary" (click)="changeCash(newCash)">Изменить</button>
+    </div>
+    <div class="row conf-row">
+      <div class="conf-info col-sm-6">
+        Запрещенные монеты:
+      </div>
+    </div>
+    <div class="row conf-row">
+      <div class="conf-info col-sm-6"> 
+        1 руб - {{vendingModel.blocked1}}
+      </div>
+      <button class="btn btn-primary" (click)="changeBlocking(1)">Сменить блокировку</button>
+    </div>
+    <div class="row conf-row">
+      <div class="conf-info col-sm-6"> 
+        2 руб - {{vendingModel.blocked2}}
+      </div>
+      <button class="btn btn-primary" (click)="changeBlocking(2)">Сменить блокировку</button>
+    </div>
+    <div class="row conf-row">
+      <div class="conf-info col-sm-6"> 
+        5 руб - {{vendingModel.blocked5}}
+      </div>
+      <button class="btn btn-primary" (click)="changeBlocking(5)">Сменить блокировку</button>
+    </div>
+    <div class="row conf-row">
+      <div class="conf-info col-sm-6"> 
+        10 руб - {{vendingModel.blocked10}}
+      </div>
+      <button class="btn btn-primary" (click)="changeBlocking(10)">Сменить блокировку</button>
+    </div>
+    <button class="btn btn-primary" (click)="saveChanges()">Сохранить изменения</button>
+    <div class="row conf-row" *ngIf="changesSaved">
+        <div class="conf-info col-sm-6"> 
+          Изменения сохранены
+        </div>
+    </div>
+  </div>

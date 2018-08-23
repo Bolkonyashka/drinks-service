@@ -26,4 +26,13 @@ export class VendingModel{
     buyButtonIsNotActive() {
       return this.selectedDrinks.length === 0;
     }
+
+    fillDrinksList(data: any[]) {
+      for (let key in data) {
+        //console.log(data[key]);
+        var drinkItem = new DrinkItem(data[key]);
+        //console.log(drinkItem);
+        this.drinksForSale.push(drinkItem);
+      }
+    }
   }

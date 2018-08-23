@@ -1,3 +1,9 @@
+#vending-block {
+    width: 1000px;
+    background-color: rgb(193, 155, 221);
+    margin: auto;
+    box-shadow: 0 0 10px 2px grey;
+}
 #console-block {
     width: 1000px;
     margin: auto;
@@ -72,6 +78,9 @@
 }
 #selected-drinks-label {
     font-size: 18px;
+}
+#selected-drink {
+    margin-top: 0;
 }
 #price {
     font-size: 20px;

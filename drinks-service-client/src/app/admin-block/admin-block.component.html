@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row" *ngIf="!keyIsRight">
+      <div class="col-sm key-tip" >
+        Вы ввели неправильный ключ.
+        Через несколько секунд Вы будете перенаправлены к автомату!
+      </div>
+    </div>
+    <div *ngIf="keyIsRight">
+      <button class='btn btn-primary col-sm adm-but' (click)="openConfig()">Конфигурация автомата</button>
+      <button class='btn btn-primary col-sm adm-but' (click)="openDrinkList()">Настройка ассортимента</button>
+      <app-config-block *ngIf="configAction"></app-config-block>
+      <div *ngIf="drinksListAction">
+        Ассортимент
+      </div>
+    </div>
+  </div>
