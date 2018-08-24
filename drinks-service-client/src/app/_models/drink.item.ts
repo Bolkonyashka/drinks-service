@@ -4,8 +4,9 @@ export class DrinkItem{
     name: string = '';
     price: number = 0;
     count: number = 0;
+    hasChanged: boolean = false;
 
-    constructor(data: any) {
+    constructor(data: any = {}) {
       for (let key in data) {
         if (key in this) {
           this[key] = data[key];
@@ -14,7 +15,7 @@ export class DrinkItem{
     }
 
     available() {
-      return this.count != 0;
+      return this.count > 0;
     }
 
   }

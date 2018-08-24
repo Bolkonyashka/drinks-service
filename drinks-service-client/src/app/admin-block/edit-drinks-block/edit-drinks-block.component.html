@@ -1,0 +1,54 @@
+<div *ngIf="drinksIsReady">
+    <table *ngIf="tableMode; else create" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Картинка</th>
+                <th>URL картинки</th>
+                <th>Название</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let drink of drinksList">
+                <ng-template [ngIf]="drinkForEdit.id != drink.id" [ngIfElse]="edit">
+                  <td class="td-20"><img class="drink-img" src={{drink.img}}></td>
+                  <td class="td-20">{{drink.img}}</td>
+                  <td class="td-20">{{drink.name}}</td>
+                  <td class="td-10">{{drink.price}}</td>
+                  <td class="td-10">{{drink.count}}</td>
+                  <td class="td-10">
+                      <button class="btn btn-sm btn-primary" (click)="editDrink(drink)">Изменить</button>
+                  </td>
+                  <td class="td-10">
+                      <button class="btn btn-sm btn-danger" (click)="deleteDrink(drink)">Удалить</button>  
+                  </td>
+                </ng-template>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #edit>
+    <td>
+        <img class="drink-img" src={{drinkForEdit.img}}>
+    </td>
+    <td class="long-td">
+        <input type="text" [(ngModel)]="drinkForEdit.img" class="form-control" />
+    </td>
+    <td>
+        <input type="text" [(ngModel)]="drinkForEdit.name" class="form-control" />
+    </td>
+    <td>
+        <input type="number" [(ngModel)]="drinkForEdit.price" class="form-control" />
+    </td>
+    <td>
+        <input type="number" [(ngModel)]="drinkForEdit.count" class="form-control" />
+    </td>
+    <td>
+        <input type="button" value="Сохранить" (click)="saveChanges()" class="btn btn-sm btn-success" />
+    </td>
+    <td></td>
+</ng-template>

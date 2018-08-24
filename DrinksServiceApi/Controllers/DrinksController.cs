@@ -39,16 +39,41 @@ namespace DrinksServiceApi.Controllers
         {
         }
 
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        // PUT api/<controller>
+        [HttpPut]
+        public IActionResult Put([FromBody]DrinkModel dModel)
         {
+            if (dModel != null)
+            {
+                if (this.db.DrinksList.Any(x => x.id == dModel.id))
+                {
+                    if (dModel.count < 0)
+                        dModel.count = 0;
+                    if (dModel.price < 0)
+                        dModel.price = 0;
+                    db.DrinksList.Update(dModel);
+                    db.SaveChanges();
+                    return Ok(dModel);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            DrinkModel dModel = new DrinkModel();
+            dModel.id = id;
+            db.DrinksList.Remove(dModel);
+            return Ok(id);
         }
     }
 }

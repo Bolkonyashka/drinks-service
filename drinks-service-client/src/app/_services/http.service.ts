@@ -14,4 +14,9 @@ export class HttpService{
         const headers = new HttpHeaders().set('content-type', 'application/json');
         return this.http.put(url, JSON.stringify(data), { headers: headers });
     }
+
+    deleteDataByID(url: string, id: number) {
+        console.log(url + '/' + id);
+        return this.http.delete(url + '/' + id);
+    }
 }

@@ -53,6 +53,8 @@ namespace DrinksServiceApi.Controllers
             {
                 if (this.db.VendingModels.Any(x => x.id == vModel.id))
                 {
+                    if (vModel.cash < 0)
+                        vModel.cash = 0;
                     db.VendingModels.Update(vModel);
                     db.SaveChanges();
                     return Ok(vModel);
@@ -68,8 +70,9 @@ namespace DrinksServiceApi.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            return Ok(id);
         }
     }
 }

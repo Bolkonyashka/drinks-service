@@ -9,8 +9,6 @@
       <button class='btn btn-primary col-sm adm-but' (click)="openConfig()">Конфигурация автомата</button>
       <button class='btn btn-primary col-sm adm-but' (click)="openDrinkList()">Настройка ассортимента</button>
       <app-config-block *ngIf="configAction"></app-config-block>
-      <div *ngIf="drinksListAction">
-        Ассортимент
-      </div>
+      <app-edit-drinks-block *ngIf="drinksListAction"></app-edit-drinks-block>
     </div>
   </div>

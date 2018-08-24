@@ -11,6 +11,7 @@ import { HttpService } from '../../_services/http.service';
 export class ConfigBlockComponent implements OnInit {
   vendingModel:VendingModel;
   modelIsReady: boolean = false;
+  cashIsChanging: boolean = false;
   changesSaved: boolean = false;
 
   constructor(private httpService: HttpService) { }
@@ -22,7 +23,12 @@ export class ConfigBlockComponent implements OnInit {
       });
   }
 
-  changeCash(newCash: number) {
+  changeCash() {
+    this.cashIsChanging = true;
+  }
+
+  saveNewCash(newCash: number) {
+    this.cashIsChanging = false;
     this.vendingModel.cash = newCash;
   }
 
@@ -50,6 +56,14 @@ export class ConfigBlockComponent implements OnInit {
     this.httpService.putData("http://localhost:5000/api/vending", this.vendingModel).subscribe(data => {
       this.changesSaved = true;
     });
+  }
+
+  getCoinStatusAction(stat: boolean) {
+    if (stat) {
+      return "Разблокировать";
+    } else {
+      return "Заблокировать";
+    }
   }
 
 }

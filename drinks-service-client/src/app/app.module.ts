@@ -12,6 +12,7 @@ import { HttpClientModule }   from '@angular/common/http';
 import { HttpService } from './_services/http.service';
 import { AdminBlockComponent } from './admin-block/admin-block.component';
 import { ConfigBlockComponent } from './admin-block/config-block/config-block.component';
+import { EditDrinksBlockComponent } from './admin-block/edit-drinks-block/edit-drinks-block.component';
 
 
 const appRoutes: Routes =[
@@ -26,7 +27,8 @@ const appRoutes: Routes =[
     VendingBlockComponent,
     DrinkItemsComponent,
     AdminBlockComponent,
-    ConfigBlockComponent
+    ConfigBlockComponent,
+    EditDrinksBlockComponent
   ],
   imports: [
     BrowserModule,
