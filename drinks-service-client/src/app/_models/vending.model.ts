@@ -9,12 +9,15 @@ export class VendingModel{
     blocked5: boolean = false;
     blocked10: boolean = false;
     
-    selectedDrinks: DrinkItem[] = [];
     drinksForSale: DrinkItem[] = [];
+    coinList: number[] = [1, 2, 5, 10];
+    blockedCoinList: boolean[] = [];
+
+    selectedDrinks: DrinkItem[] = [];
     currentInput: number = 0;
     currentOutput: number = 0;
     currentPrice: number = 0;
-    blockedCoinList: boolean[] = [];
+    
     tip: VendingTip = new VendingTip();
 
     constructor(data: any = {}) {
@@ -72,10 +75,17 @@ export class VendingModel{
       }
     }
 
-    fillDrinksList(data: any[]) {//
+    fillDrinksList(data: any[]) {
       for (let d of data) {
         var drinkItem = new DrinkItem(d);
         this.drinksForSale.push(drinkItem);
       }
+    }
+
+    resetCurrentStatus() {
+      this.currentPrice = 0;
+      this.currentOutput = 0;
+      this.currentInput = 0;
+      this.selectedDrinks.length = 0;
     }
   }

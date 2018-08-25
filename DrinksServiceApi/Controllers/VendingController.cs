@@ -17,7 +17,7 @@ namespace DrinksServiceApi.Controllers
 
         public VendingController(VendingContext context)
         {
-            this.db = context;
+            db = context;
             if (!db.VendingModels.Any())
             {
                 db.VendingModels.Add(new VendingModel { cash = 500, blocked1 = false, blocked2 = false, blocked5 = false, blocked10 = false });

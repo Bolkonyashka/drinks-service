@@ -24,7 +24,7 @@ namespace DrinksServiceApi.Controllers
 
         public DrinksController(VendingContext context)
         {
-            this.db = context;
+            db = context;
         }
 
         // GET: api/<controller>

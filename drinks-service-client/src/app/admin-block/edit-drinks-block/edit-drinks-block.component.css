@@ -3,9 +3,7 @@
     height: 200px;
     background-color: white;
 }
-td {
-    word-break: break-all;
-}
+
 .td-20 {
     width: 20%;
 }
@@ -14,4 +12,7 @@ td {
 }
 .marg-20 {
     margin: 20px;
+}
+td {
+    word-break: break-all;
 }

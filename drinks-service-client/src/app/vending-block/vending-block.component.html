@@ -1,54 +1,39 @@
 <div id="vending-block" *ngIf="modelIsReady">
-  <div id="console-block">
-      <div id="console-screen">
-        <div class="info-block" id="input">Вы внесли {{vendingModel.currentInput}} руб</div>
-        <div class="info-block" id="selected-drinks-label">Выбранные напитки (максимум 5):</div>
-        <div class="info-block" id="selected-drink" *ngFor="let sDrink of vendingModel.selectedDrinks">{{sDrink.name}}</div>
-        <div class="info-block" id="price">
-          <div *ngIf="vendingModel.tip.status" id="error-info">
-            {{vendingModel.tip.text}}
-          </div>
-          <div>
-            Стоимость: {{vendingModel.currentPrice}} руб
-          </div> 
-          <div>
-            Сдача: {{vendingModel.currentOutput}} руб
-          </div>
+    <div id="console-block">
+        <div id="console-screen">
+            <div class="info-block" id="input">Вы внесли {{vendingModel.currentInput}} руб</div>
+            <div class="info-block" id="selected-drinks-label">Выбранные напитки (максимум 5):</div>
+            <div class="info-block" id="selected-drink" *ngFor="let sDrink of vendingModel.selectedDrinks">{{sDrink.name}}</div>
+            <div class="info-block" id="price">
+                <div *ngIf="vendingModel.tip.status" id="error-info">
+                    {{vendingModel.tip.text}}
+                </div>
+                <div>
+                    Стоимость: {{vendingModel.currentPrice}} руб
+                </div> 
+                <div>
+                    Сдача: {{vendingModel.currentOutput}} руб
+                </div>
+            </div>
         </div>
-      </div>
-      <div id="console-buttons">
-        <div id="pay-buttons">
-          <button class="pay-button" (click)="moneyInput(1)" [disabled]="vendingModel.blocked1">
-            <div class="button-text">
-              1
+        <div id="console-buttons">
+            <div id="pay-buttons">
+                <button *ngFor="let coin of vendingModel.coinList" class="pay-button" (click)="moneyInput(coin)" [disabled]="vendingModel.blockedCoinList[coin]">
+                    <div class="button-text">
+                        {{coin}}
+                    </div>
+                </button>
             </div>
-          </button>
-          <button class="pay-button" (click)="moneyInput(2)" [disabled]="vendingModel.blocked2">
-            <div class="button-text">
-                2
+            <div id="buy-buttons">
+                <button class="buy-button" (click)="buyDrinks()" [disabled]="vendingModel.buyButtonIsNotActive()">
+                    <div class="button-text">
+                        Забрать
+                    </div>
+                </button>  
             </div>
-          </button>
-          <button class="pay-button"  (click)="moneyInput(5)" [disabled]="vendingModel.blocked5">
-            <div class="button-text">
-                5
-            </div>
-          </button>
-          <button class="pay-button"  (click)="moneyInput(10)" [disabled]="vendingModel.blocked10">
-            <div class="button-text">
-                10
-            </div>
-          </button>
         </div>
-        <div id="buy-buttons">
-          <button class="buy-button" (click)="buyDrinks()" [disabled]="vendingModel.buyButtonIsNotActive()">
-            <div class="button-text">
-                Забрать
-            </div>
-          </button>  
-        </div>
-      </div>
-  </div>
-  <div id="drinks-block">
-    <app-drink-items *ngFor="let drink of vendingModel.drinksForSale" [drinkItem]="drink" (click)="selectItem(drink)"></app-drink-items>
-  </div>
+    </div>
+    <div id="drinks-block">
+        <app-drink-items *ngFor="let drink of vendingModel.drinksForSale" [drinkItem]="drink" (click)="selectItem(drink)"></app-drink-items>
+    </div>
 </div>

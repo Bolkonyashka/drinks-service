@@ -1,4 +1,4 @@
-import { Input, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { VendingModel } from '../../_models/vending.model';
 
 import { HttpService } from '../../_services/http.service';
@@ -12,15 +12,18 @@ export class ConfigBlockComponent implements OnInit {
   vendingModel:VendingModel;
   modelIsReady: boolean = false;
   cashIsChanging: boolean = false;
-  coinList: number[] = [1, 2, 5, 10]
 
   constructor(private httpService: HttpService) { }
 
   ngOnInit() {
+    this.loadData();
+  }
+
+  loadData() {
     this.httpService.getData("http://localhost:5000/api/vending/0").subscribe(data => {
       this.vendingModel = new VendingModel(data);
       this.modelIsReady = true;
-      });
+    });
   }
 
   switchChangeCashMode() {

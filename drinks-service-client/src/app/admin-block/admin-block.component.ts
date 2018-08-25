@@ -16,9 +16,7 @@ export class AdminBlockComponent implements OnInit {
   paramKey: string;
   keyIsRight: boolean;
   verySecretKey: string = "koko";
-  configAction: boolean = false;
-  drinksListAction: boolean = false;
-  modelIsReady: boolean = false;
+  configAction: boolean = true;
 
   constructor(private activateRoute: ActivatedRoute, private router:Router, private httpService: HttpService) {
     this.paramKey = this.activateRoute.snapshot.params['key'];
@@ -32,13 +30,11 @@ export class AdminBlockComponent implements OnInit {
   }
 
   openConfig() {
-    this.drinksListAction = false;
     this.configAction = true;
   }
 
   openDrinkList() {
     this.configAction = false;
-    this.drinksListAction = true;
   }
 
 }

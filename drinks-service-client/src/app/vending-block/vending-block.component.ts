@@ -12,19 +12,30 @@ import { HttpService } from '../_services/http.service';
 export class VendingBlockComponent implements OnInit {
   vendingModel: VendingModel;
   maxCount: number = 5;
-  modelIsReady: boolean = false; //Заглушка на время подгрузки конфигурации автомата
+  modelIsReady: boolean = false;
 
   constructor(private httpService: HttpService) {  }
 
   ngOnInit() {
+    this.loadData();
+  }
+
+  loadData() {
     this.httpService.getData("http://localhost:5000/api/vending/0").subscribe(data => {
-      this.vendingModel = new VendingModel(data); //конструктор создан специально для преобразования обычных объектов
+      this.vendingModel = new VendingModel(data);
       this.modelIsReady = true;
       this.httpService.getData("http://localhost:5000/api/drinks").subscribe(data => {
         var dataArray = Array.prototype.slice.call(data, 0);
         this.vendingModel.fillDrinksList(dataArray);
       })
-    } );
+    });
+  }
+
+  putChangedData() {
+    this.httpService.putData("http://localhost:5000/api/vending", this.vendingModel).subscribe();
+    for (let drink of this.vendingModel.selectedDrinks) {
+      this.httpService.putData("http://localhost:5000/api/drinks", drink).subscribe();
+    }
   }
 
   moneyInput(count: number) {
@@ -56,14 +67,8 @@ export class VendingBlockComponent implements OnInit {
         this.vendingModel.tip.prepareTip("Не забудьте взять вашу сдачу: " + String(this.vendingModel.currentOutput) + " руб");
       }
       this.vendingModel.cash += this.vendingModel.currentPrice;
-      this.httpService.putData("http://localhost:5000/api/vending", this.vendingModel).subscribe();
-      for (let drink of this.vendingModel.selectedDrinks) {
-        this.httpService.putData("http://localhost:5000/api/drinks", drink).subscribe();
-      }
-      this.vendingModel.currentPrice = 0;
-      this.vendingModel.currentOutput = 0;
-      this.vendingModel.currentInput = 0;
-      this.vendingModel.selectedDrinks.length = 0;
+      this.putChangedData();
+      this.vendingModel.resetCurrentStatus();
     }
   }
 

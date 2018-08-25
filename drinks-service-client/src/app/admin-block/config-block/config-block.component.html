@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let coin of coinList">
+            <tr *ngFor="let coin of vendingModel.coinList">
                 <td class="td-width-300">{{coin}} руб</td>
                 <td class="td-width-300">{{vendingModel.getCoinStatus(coin)}}</td>
                 <td><button class="btn btn-sm btn-primary" (click)="changeBlocking(coin)">{{vendingModel.getCoinStatusAction(coin)}}</button></td>
