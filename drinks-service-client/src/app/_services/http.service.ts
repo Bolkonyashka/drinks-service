@@ -7,7 +7,7 @@ export class HttpService{
     constructor(private http: HttpClient){ }
       
     getData(url: string){
-        return this.http.get(url)
+        return this.http.get(url);
     }
 
     putData(url: string, data: any) {
@@ -16,7 +16,11 @@ export class HttpService{
     }
 
     deleteDataByID(url: string, id: number) {
-        console.log(url + '/' + id);
         return this.http.delete(url + '/' + id);
+    }
+
+    createData(url: string, data: any) {
+        const headers = new HttpHeaders().set('content-type', 'application/json');
+        return this.http.post(url, JSON.stringify(data), { headers: headers });
     }
 }

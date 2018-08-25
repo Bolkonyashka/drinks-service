@@ -1,4 +1,5 @@
 <div *ngIf="drinksIsReady">
+    <button class="btn btn-primary marg-20" (click)="switchToCreateMode()" *ngIf="tableMode">Добавить</button>
     <table *ngIf="tableMode; else create" class="table table-striped">
         <thead>
             <tr>
@@ -48,7 +49,33 @@
         <input type="number" [(ngModel)]="drinkForEdit.count" class="form-control" />
     </td>
     <td>
-        <input type="button" value="Сохранить" (click)="saveChanges()" class="btn btn-sm btn-success" />
+        <button class="btn btn-sm btn-success" (click)="saveChanges()">Сохранить</button>
     </td>
     <td></td>
 </ng-template>
+
+<ng-template #create>
+        <div class="marg-20">
+            <img class="drink-img" src={{drinkForEdit.img}}>
+        </div>
+        <div class="form-group">
+            <label>URL картинки</label>
+            <input type="text" [(ngModel)]="drinkForEdit.img" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Название</label>
+            <input type="text" [(ngModel)]="drinkForEdit.name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Цена</label>
+            <input type="number" [(ngModel)]="drinkForEdit.price" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Количество</label>
+            <input type="number" [(ngModel)]="drinkForEdit.count" class="form-control" />
+        </div>
+        <div>
+            <button class="btn btn-success marg-20" (click)="saveNewDrink()">Сохранить</button>
+            <button class="btn btn-warning marg-20" (click)="cancel()">Отмена</button>
+        </div>
+    </ng-template>

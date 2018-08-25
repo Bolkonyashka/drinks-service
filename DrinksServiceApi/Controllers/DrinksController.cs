@@ -14,6 +14,14 @@ namespace DrinksServiceApi.Controllers
     {
         VendingContext db;
 
+        private void NormalizeModel(DrinkModel dModel)
+        {
+            if (dModel.count < 0)
+                dModel.count = 0;
+            if (dModel.price < 0)
+                dModel.price = 0;
+        }
+
         public DrinksController(VendingContext context)
         {
             this.db = context;
@@ -35,8 +43,17 @@ namespace DrinksServiceApi.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]DrinkModel dModel)
         {
+            
+            if (ModelState.IsValid)
+            {
+                NormalizeModel(dModel);
+                db.DrinksList.Add(dModel);
+                db.SaveChanges();
+                return Ok(dModel);
+            }
+            return BadRequest(ModelState);
         }
 
         // PUT api/<controller>
@@ -47,10 +64,7 @@ namespace DrinksServiceApi.Controllers
             {
                 if (this.db.DrinksList.Any(x => x.id == dModel.id))
                 {
-                    if (dModel.count < 0)
-                        dModel.count = 0;
-                    if (dModel.price < 0)
-                        dModel.price = 0;
+                    NormalizeModel(dModel);
                     db.DrinksList.Update(dModel);
                     db.SaveChanges();
                     return Ok(dModel);
@@ -70,10 +84,14 @@ namespace DrinksServiceApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            DrinkModel dModel = new DrinkModel();
-            dModel.id = id;
-            db.DrinksList.Remove(dModel);
-            return Ok(id);
+            DrinkModel dModel = db.DrinksList.FirstOrDefault(x => x.id == id);
+            if (dModel != null)
+            {
+                db.DrinksList.Remove(dModel);
+                db.SaveChanges();
+                return Ok(id);
+            }   
+            return NotFound(id);
         }
     }
 }

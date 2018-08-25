@@ -22,9 +22,7 @@ export class VendingBlockComponent implements OnInit {
       this.modelIsReady = true;
       this.httpService.getData("http://localhost:5000/api/drinks").subscribe(data => {
         var dataArray = Array.prototype.slice.call(data, 0);
-        console.log(dataArray);
         this.vendingModel.fillDrinksList(dataArray);
-        //console.log(this.vendingModel.drinksForSale[0]);
       })
     } );
   }
@@ -56,6 +54,11 @@ export class VendingBlockComponent implements OnInit {
       this.vendingModel.tip.resetStatus();
       if (this.vendingModel.currentOutput > 0) {
         this.vendingModel.tip.prepareTip("Не забудьте взять вашу сдачу: " + String(this.vendingModel.currentOutput) + " руб");
+      }
+      this.vendingModel.cash += this.vendingModel.currentPrice;
+      this.httpService.putData("http://localhost:5000/api/vending", this.vendingModel).subscribe();
+      for (let drink of this.vendingModel.selectedDrinks) {
+        this.httpService.putData("http://localhost:5000/api/drinks", drink).subscribe();
       }
       this.vendingModel.currentPrice = 0;
       this.vendingModel.currentOutput = 0;

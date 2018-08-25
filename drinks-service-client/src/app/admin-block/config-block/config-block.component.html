@@ -1,51 +1,43 @@
 <div *ngIf="modelIsReady">
-    <div class="row conf-row" *ngIf="!cashIsChanging">
+    <div class="row conf-row" *ngIf="!cashIsChanging; else edit">
       <div class="conf-info col-sm-3">
         Баланс автомата: 
       </div>
       <div class="conf-info col-sm-3">
         {{vendingModel.cash}}
       </div>
-      <button class="btn btn-primary" (click)="changeCash()">Изменить</button>
-    </div>
-    <div class="row conf-row" *ngIf="cashIsChanging">
-      <div class="conf-info col-sm-3">
-          Баланс автомата: 
-      </div>
-      <input type="number" class="form-control col-sm-3" placeholder="Новое значение" aria-label="Новое значение" [(ngModel)]="newCash">
-      <button class="btn btn-primary" (click)="saveNewCash(newCash)">Сохранить</button>
+      <button class="btn btn-primary" (click)="switchChangeCashMode()">Изменить</button>
     </div>
     <div class="row conf-row">
       <div class="conf-info col-sm-6">
         Запрещенные монеты:
       </div>
     </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Монета</th>
+                <th>Статус</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let coin of coinList">
+                <td class="td-width-300">{{coin}} руб</td>
+                <td class="td-width-300">{{vendingModel.getCoinStatus(coin)}}</td>
+                <td><button class="btn btn-sm btn-primary" (click)="changeBlocking(coin)">{{vendingModel.getCoinStatusAction(coin)}}</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #edit>
     <div class="row conf-row">
-      <div class="conf-info col-sm-6"> 
-        1 руб - {{vendingModel.blocked1}}
-      </div>
-      <button class="btn btn-primary" (click)="changeBlocking(1)">{{getCoinStatusAction(vendingModel.blocked1)}}</button>
+        <div class="conf-info col-sm-3">
+            Баланс автомата: 
+        </div>
+        <input type="number" class="form-control col-sm-3" placeholder="Новое значение" aria-label="Новое значение" [(ngModel)]="vendingModel.cash">
+        <button class="btn btn-primary" (click)="saveNewCash()">Сохранить</button>
     </div>
-    <div class="row conf-row">
-      <div class="conf-info col-sm-6"> 
-        2 руб - {{vendingModel.blocked2}}
-      </div>
-      <button class="btn btn-primary" (click)="changeBlocking(2)">{{getCoinStatusAction(vendingModel.blocked2)}}</button>
-    </div>
-    <div class="row conf-row">
-      <div class="conf-info col-sm-6"> 
-        5 руб - {{vendingModel.blocked5}}
-      </div>
-      <button class="btn btn-primary" (click)="changeBlocking(5)">{{getCoinStatusAction(vendingModel.blocked5)}}</button>
-    </div>
-    <div class="row conf-row">
-      <div class="conf-info col-sm-6"> 
-        10 руб - {{vendingModel.blocked10}}
-      </div>
-      <button class="btn btn-primary" (click)="changeBlocking(10)">{{getCoinStatusAction(vendingModel.blocked10)}}</button>
-    </div>
-    <button class="btn btn-primary" (click)="saveChanges()">Сохранить изменения</button>
-    <div class="row conf-row" *ngIf="changesSaved"> 
-      Изменения сохранены
-    </div>
-  </div>
+</ng-template>

@@ -70,9 +70,8 @@ namespace DrinksServiceApi.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public void Delete(int id)
         {
-            return Ok(id);
         }
     }
 }

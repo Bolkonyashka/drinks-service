@@ -21,6 +21,8 @@ export class EditDrinksBlockComponent implements OnInit {
   }
 
   loadDrinks() {
+    this.drinksList = [];
+    this.drinksIsReady = false;
     this.httpService.getData("http://localhost:5000/api/drinks").subscribe(data => {
         var dataArray = Array.prototype.slice.call(data, 0);
         for (let key in dataArray) {
@@ -41,9 +43,27 @@ export class EditDrinksBlockComponent implements OnInit {
   }
 
   deleteDrink(drink: DrinkItem) {
-    this.httpService.deleteDataByID("http://localhost:5000/api/drinks", drink.id).subscribe(data => {
-      console.log(data);
+    this.httpService.deleteDataByID("http://localhost:5000/api/drinks", drink.id).subscribe(() => {
+      var index = this.drinksList.indexOf(drink);
+      if (index > -1) {
+        this.drinksList.splice(index, 1);
+      }
     });
   }
 
+  saveNewDrink() {
+    this.httpService.createData("http://localhost:5000/api/drinks", this.drinkForEdit).subscribe(() => {
+      this.loadDrinks();
+      this.cancel();
+    })
+  }
+
+  cancel() {
+    this.drinkForEdit = new DrinkItem();
+    this.tableMode = true;
+  }
+
+  switchToCreateMode() {
+    this.tableMode = false;
+  }
 }

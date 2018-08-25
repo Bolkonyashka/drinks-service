@@ -12,7 +12,7 @@ export class ConfigBlockComponent implements OnInit {
   vendingModel:VendingModel;
   modelIsReady: boolean = false;
   cashIsChanging: boolean = false;
-  changesSaved: boolean = false;
+  coinList: number[] = [1, 2, 5, 10]
 
   constructor(private httpService: HttpService) { }
 
@@ -23,47 +23,22 @@ export class ConfigBlockComponent implements OnInit {
       });
   }
 
-  changeCash() {
-    this.cashIsChanging = true;
+  switchChangeCashMode() {
+    this.cashIsChanging = !this.cashIsChanging;
   }
 
-  saveNewCash(newCash: number) {
-    this.cashIsChanging = false;
-    this.vendingModel.cash = newCash;
+  saveNewCash() {
+    this.saveChanges();
+    this.switchChangeCashMode();
   }
 
   changeBlocking(coin: number) {
-    switch(coin) {
-      case 1:
-        this.vendingModel.blocked1 = !this.vendingModel.blocked1;
-        break;
-      case 2:
-        this.vendingModel.blocked2 = !this.vendingModel.blocked2;
-        break;
-      case 5:
-        this.vendingModel.blocked5 = !this.vendingModel.blocked5;
-        break;
-      case 10:
-        this.vendingModel.blocked10 = !this.vendingModel.blocked10;
-        break;
-      default:
-        break;
-      }
+      this.vendingModel.changeBlockingStatus(coin);
+      this.saveChanges();
     }
 
   saveChanges() {
-    this.changesSaved = false;
-    this.httpService.putData("http://localhost:5000/api/vending", this.vendingModel).subscribe(data => {
-      this.changesSaved = true;
-    });
-  }
-
-  getCoinStatusAction(stat: boolean) {
-    if (stat) {
-      return "Разблокировать";
-    } else {
-      return "Заблокировать";
-    }
+    this.httpService.putData("http://localhost:5000/api/vending", this.vendingModel).subscribe();
   }
 
 }

@@ -4,7 +4,6 @@ export class DrinkItem{
     name: string = '';
     price: number = 0;
     count: number = 0;
-    hasChanged: boolean = false;
 
     constructor(data: any = {}) {
       for (let key in data) {
