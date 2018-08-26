@@ -9,10 +9,10 @@ import { HttpService } from '../../_services/http.service';
   styleUrls: ['./edit-drinks-block.component.css']
 })
 export class EditDrinksBlockComponent implements OnInit {
-  drinksIsReady: boolean = false;
-  drinksList: DrinkItem[] = [];
-  tableMode: boolean = true;
-  drinkForEdit: DrinkItem = new DrinkItem();
+  drinksIsReady: boolean = false; // For data loading control
+  drinksList: DrinkItem[] = []; // Array of drinks in vending machine
+  tableMode: boolean = true; // Flag to change delete-modify/add mode
+  drinkForEdit: DrinkItem = new DrinkItem(); // Model for change drink item
 
   constructor(private httpService: HttpService) { }
 
@@ -20,6 +20,9 @@ export class EditDrinksBlockComponent implements OnInit {
     this.loadDrinks();
   }
 
+  /*
+    Loads data from the server
+  */
   loadDrinks() {
     this.drinksList = [];
     this.drinksIsReady = false;
@@ -32,16 +35,18 @@ export class EditDrinksBlockComponent implements OnInit {
         this.drinksIsReady = true;
       })
   }
-
-  editDrink(drink: DrinkItem) {
-    this.drinkForEdit = drink;
-  }
-
+  
+  /*
+    Update request to the server
+  */
   saveChanges() {
     this.httpService.putData("http://localhost:5000/api/drinks", this.drinkForEdit).subscribe();
     this.drinkForEdit = new DrinkItem();
   }
-
+  
+  /*
+    Delete request to the server
+  */
   deleteDrink(drink: DrinkItem) {
     this.httpService.deleteDataByID("http://localhost:5000/api/drinks", drink.id).subscribe(() => {
       var index = this.drinksList.indexOf(drink);
@@ -50,12 +55,19 @@ export class EditDrinksBlockComponent implements OnInit {
       }
     });
   }
-
+  
+  /*
+    Create request to the server
+  */
   saveNewDrink() {
     this.httpService.createData("http://localhost:5000/api/drinks", this.drinkForEdit).subscribe(() => {
       this.loadDrinks();
       this.cancel();
     })
+  }
+
+  editDrink(drink: DrinkItem) {
+    this.drinkForEdit = drink;
   }
 
   cancel() {

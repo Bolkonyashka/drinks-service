@@ -2,14 +2,16 @@ import { DrinkItem } from './drink.item';
 import { VendingTip } from './tip.model';
 
 export class VendingModel{
-    id: number = 0;
+    // Web.API model properties
+    id: number = 0; 
     cash: number = 100;
     blocked1: boolean = false;
     blocked2: boolean = false;
     blocked5: boolean = false;
     blocked10: boolean = false;
-    
-    drinksForSale: DrinkItem[] = [];
+
+    // Additional props for the client logic
+    drinksForSale: DrinkItem[] = []; 
     coinList: number[] = [1, 2, 5, 10];
     blockedCoinList: boolean[] = [];
 
@@ -20,6 +22,9 @@ export class VendingModel{
     
     tip: VendingTip = new VendingTip();
 
+    /*
+      Constructor to create an instance from an VendingModel-like object
+    */
     constructor(data: any = {}) {
       for (let key in data) {
         if (key in this) {
@@ -36,6 +41,9 @@ export class VendingModel{
       return this.selectedDrinks.length === 0;
     }
 
+    /*
+      Change the lock status of the coin
+    */
     changeBlockingStatus(coin: number) {
       switch(coin) {
         case 1:
@@ -59,6 +67,9 @@ export class VendingModel{
         }
     }
 
+    /*
+      The following two methods are intended for admin panel UI 
+    */
     getCoinStatusAction(coin: number) {
       if (this.blockedCoinList[coin]) {
         return "Разблокировать";
@@ -75,6 +86,9 @@ export class VendingModel{
       }
     }
 
+    /*
+      Creates an array of drinks from an array of DrinkItem-like objects
+    */
     fillDrinksList(data: any[]) {
       for (let d of data) {
         var drinkItem = new DrinkItem(d);
@@ -82,6 +96,9 @@ export class VendingModel{
       }
     }
 
+    /*
+      Reset a UI console info
+    */
     resetCurrentStatus() {
       this.currentPrice = 0;
       this.currentOutput = 0;

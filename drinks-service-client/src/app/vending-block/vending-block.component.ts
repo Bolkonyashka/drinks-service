@@ -10,9 +10,9 @@ import { HttpService } from '../_services/http.service';
   styleUrls: ['./vending-block.component.css']
 })
 export class VendingBlockComponent implements OnInit {
-  vendingModel: VendingModel;
-  maxCount: number = 5;
-  modelIsReady: boolean = false;
+  vendingModel: VendingModel; // The main model of the vending machine
+  maxCount: number = 5; // Just because
+  modelIsReady: boolean = false; // For data loading control
 
   constructor(private httpService: HttpService) {  }
 
@@ -20,6 +20,9 @@ export class VendingBlockComponent implements OnInit {
     this.loadData();
   }
 
+  /*
+    Loads data from the server
+  */
   loadData() {
     this.httpService.getData("http://localhost:5000/api/vending/0").subscribe(data => {
       this.vendingModel = new VendingModel(data);
@@ -31,6 +34,9 @@ export class VendingBlockComponent implements OnInit {
     });
   }
 
+  /*
+    Uploads data to the server
+  */
   putChangedData() {
     this.httpService.putData("http://localhost:5000/api/vending", this.vendingModel).subscribe();
     for (let drink of this.vendingModel.selectedDrinks) {
@@ -38,6 +44,10 @@ export class VendingBlockComponent implements OnInit {
     }
   }
 
+  /*
+    The following three methods change the model after user actions
+    The purchase takes place only after clicking the pick up button
+  */
   moneyInput(count: number) {
     this.vendingModel.tip.resetStatus();
     this.vendingModel.currentInput += count;

@@ -38,9 +38,8 @@ namespace DrinksServiceApi
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            //app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
             app.UseCors(builder => {
-                builder.WithOrigins("http://localhost:4200/").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials();
             });
 
             app.UseMvc();

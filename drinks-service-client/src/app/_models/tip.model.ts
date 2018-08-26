@@ -1,6 +1,6 @@
 export class VendingTip{
     status: boolean = false;
-    text: string = '';
+    text: string = ''; // Tip info
 
     resetStatus() {
         this.status = false;

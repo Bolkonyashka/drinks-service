@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from "@angular/router";
 
-import { VendingModel } from '../_models/vending.model';
-import { DrinkItem } from '../_models/drink.item';
-
 import { HttpService } from '../_services/http.service';
 
 @Component({
@@ -15,18 +12,25 @@ import { HttpService } from '../_services/http.service';
 export class AdminBlockComponent implements OnInit {
   paramKey: string;
   keyIsRight: boolean;
-  verySecretKey: string = "koko";
-  configAction: boolean = true;
+  verySecretKey: string = "koko"; // Safety first
+  configAction: boolean = true; // Admin panel mode flag
 
   constructor(private activateRoute: ActivatedRoute, private router:Router, private httpService: HttpService) {
+    this.keyChecking();
+  }
+
+  ngOnInit() {
+  }
+
+  /*
+    Key checking. If the key is incorrect - return to the main page
+  */
+  keyChecking() {
     this.paramKey = this.activateRoute.snapshot.params['key'];
     this.keyIsRight = this.verySecretKey == this.paramKey.toString();
     if (!this.keyIsRight) {
       setTimeout(() => {this.router.navigate(['/'])}, 5000);
     }
-   }
-
-  ngOnInit() {
   }
 
   openConfig() {

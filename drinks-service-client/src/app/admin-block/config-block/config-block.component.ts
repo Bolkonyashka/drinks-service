@@ -9,9 +9,9 @@ import { HttpService } from '../../_services/http.service';
   styleUrls: ['./config-block.component.css']
 })
 export class ConfigBlockComponent implements OnInit {
-  vendingModel:VendingModel;
-  modelIsReady: boolean = false;
-  cashIsChanging: boolean = false;
+  vendingModel:VendingModel; // The main model of the vending machine
+  modelIsReady: boolean = false; // For data loading control
+  cashIsChanging: boolean = false; // For input mode activate/deactivate
 
   constructor(private httpService: HttpService) { }
 
@@ -19,11 +19,21 @@ export class ConfigBlockComponent implements OnInit {
     this.loadData();
   }
 
+  /*
+    Loads data from the server
+  */
   loadData() {
     this.httpService.getData("http://localhost:5000/api/vending/0").subscribe(data => {
       this.vendingModel = new VendingModel(data);
       this.modelIsReady = true;
     });
+  }
+  
+  /*
+    Update request to the server
+  */
+  saveChanges() {
+    this.httpService.putData("http://localhost:5000/api/vending", this.vendingModel).subscribe();
   }
 
   switchChangeCashMode() {
@@ -39,9 +49,4 @@ export class ConfigBlockComponent implements OnInit {
       this.vendingModel.changeBlockingStatus(coin);
       this.saveChanges();
     }
-
-  saveChanges() {
-    this.httpService.putData("http://localhost:5000/api/vending", this.vendingModel).subscribe();
-  }
-
 }
