@@ -77,5 +77,6 @@ export class EditDrinksBlockComponent implements OnInit {
 
   switchToCreateMode() {
     this.tableMode = false;
+    this.drinkForEdit = new DrinkItem();
   }
 }
